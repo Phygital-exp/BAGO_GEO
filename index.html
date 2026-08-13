@@ -189,6 +189,7 @@
             <p><strong><i class="material-icons icon">person</i>Código de usuario:</strong> <span id="cedula-display"></span></p>
             <p><strong><i class="material-icons icon">person_outline</i>Nombre:</strong> <span id="nombre-display">-</span></p>
             <p><strong><i class="material-icons icon">location_on</i>Región:</strong> <span id="region-display">-</span></p>
+            <p><strong><i class="material-icons icon">grid_view</i>Grilla:</strong> <span id="grilla-display">-</span></p>
         </div>
 
         <p class="status success">
@@ -251,6 +252,7 @@
                 document.getElementById('cedula-display').textContent = usuarioValidado.DNI || cedula;
                 document.getElementById('nombre-display').textContent = usuarioValidado.NOMBRE || '-';
                 document.getElementById('region-display').textContent = usuarioValidado["REGIÓN"] || '-';
+                document.getElementById('grilla-display').textContent = usuarioValidado.GRILLA || '-';
 
                 // Cambiar a step-2
                 document.getElementById('step-1').classList.add('hidden');
