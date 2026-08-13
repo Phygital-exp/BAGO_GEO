@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Ubicación Nutresa</title>
+    <title>Sistema de Ubicación BAGO</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * {
@@ -165,7 +165,7 @@
 <body>
 
 <div class="container">
-    <h2>🗺️ Sistema de Ubicación Nutresa</h2>
+    <h2>🗺️ Sistema de Ubicación BAGO</h2>
 
     <!-- STEP 1: Validar Usuario -->
     <div id="step-1">
@@ -209,7 +209,7 @@
 
 <script>
     // ========== CONFIGURACIÓN ==========
-    const PROXY_URL = "https://ubicacionnutreza-production.up.railway.app"; // URL del Proxy en Railway
+    const PROXY_URL = "https://bagogeo-production.up.railway.app"; // URL del Proxy en Railway
 
     // ========== VARIABLES GLOBALES ==========
     let usuarioValidado = null;
@@ -248,9 +248,9 @@
                 usuarioValidado = data.usuario;
 
                 // Llenar información del usuario
-                document.getElementById('cedula-display').textContent = usuarioValidado.CEDULA || cedula;
+                document.getElementById('cedula-display').textContent = usuarioValidado.DNI || cedula;
                 document.getElementById('nombre-display').textContent = usuarioValidado.NOMBRE || '-';
-                document.getElementById('region-display').textContent = usuarioValidado.CIUDAD || usuarioValidado.REGION || usuarioValidado.ZONA || '-';
+                document.getElementById('region-display').textContent = usuarioValidado["REGIÓN"] || '-';
 
                 // Cambiar a step-2
                 document.getElementById('step-1').classList.add('hidden');
@@ -282,7 +282,7 @@
             async (pos) => {
                 // Enviar latitud y longitud por separado
                 const payload = {
-                    CEDULA: usuarioValidado.CEDULA || document.getElementById('cedula-display').textContent,
+                    CEDULA: usuarioValidado.DNI || document.getElementById('cedula-display').textContent,
                     LATITUD: pos.coords.latitude,
                     LONGITUD: pos.coords.longitude
                 };
