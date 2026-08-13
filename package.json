@@ -1,7 +1,7 @@
 {
-  "name": "ubicacion-mcm-proxy",
+  "name": "ubicacion-bago-proxy",
   "version": "1.0.0",
-  "description": "Proxy para validación de usuarios y envío de ubicaciones MCM",
+  "description": "Proxy para validación de usuarios y envío de ubicaciones BAGO",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -9,7 +9,7 @@
   },
   "keywords": [
     "proxy",
-    "mcm",
+    "bago",
     "ubicacion"
   ],
   "author": "",

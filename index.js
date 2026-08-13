@@ -5,12 +5,12 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 const AUTH_HEADERS = {
-    Authorization: "Token 9b7661d9292aab2c339b95bf251063791c2a62ff",
+    Authorization: process.env.API_TOKEN || "Token 9b7661d9292aab2c339b95bf251063791c2a62ff",
     "Content-Type": "application/json",
 };
 
-const NUTRESA_USUARIOS_URL = "https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/usuarios_nutresa";
-const NUTRESA_DATA_URL = "https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/nutresa_geo_usuarios";
+const BAGO_USUARIOS_URL = process.env.BAGO_USUARIOS_URL || "https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/usuarios_bago";
+const BAGO_DATA_URL = process.env.BAGO_DATA_URL || "https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/geo_bago";
 
 app.use(cors());
 app.use(express.json());
@@ -29,12 +29,12 @@ app.get("/api/validar", async (req, res) => {
 
         console.log(`Validando cédula: ${cedula}`);
 
-        const response = await fetch(NUTRESA_USUARIOS_URL, { headers: AUTH_HEADERS });
+        const response = await fetch(BAGO_USUARIOS_URL, { headers: AUTH_HEADERS });
 
         if (!response.ok) {
             const errorBody = await response.text();
-            console.error(`❌ NUTRESA_USUARIOS respondió ${response.status}:`, errorBody);
-            throw new Error(`Error al consultar NUTRESA_USUARIOS: ${response.status}`);
+            console.error(`❌ BAGO_USUARIOS respondió ${response.status}:`, errorBody);
+            throw new Error(`Error al consultar BAGO_USUARIOS: ${response.status}`);
         }
 
         const data = await response.json();
@@ -43,12 +43,12 @@ app.get("/api/validar", async (req, res) => {
 
         if (data.result && Array.isArray(data.result)) {
             usuarioEncontrado = data.result.find(usuario =>
-                usuario.CEDULA && usuario.CEDULA.toString() === cedula.toString()
+                usuario.DNI && usuario.DNI.toString() === cedula.toString()
             );
         }
 
         if (usuarioEncontrado) {
-            console.log(`✅ Usuario encontrado: ${usuarioEncontrado.CEDULA}`);
+            console.log(`✅ Usuario encontrado: ${usuarioEncontrado.DNI}`);
             res.json({
                 existe: true,
                 usuario: usuarioEncontrado
@@ -92,9 +92,9 @@ app.post("/api/enviar-ubicacion", async (req, res) => {
             LONGITUD: parseFloat(LONGITUD)
         };
 
-        console.log(`📍 Enviando a Alqueria:`, JSON.stringify(payload, null, 2));
+        console.log(`📍 Enviando a BAGO:`, JSON.stringify(payload, null, 2));
 
-        const response = await fetch(NUTRESA_DATA_URL, {
+        const response = await fetch(BAGO_DATA_URL, {
             method: 'POST',
             headers: AUTH_HEADERS,
             body: JSON.stringify(payload)
